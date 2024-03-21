@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analog Clock</title>
+    <link rel="stylesheet" href="analogClock.css"/>
+</head>
+
+<body>
+    <style>
+        :root {
+    --main-bg-color: #1e1f26;
+    --main-text-color: #ccc
+}
+
+* {box-sizing: border-box;}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    background-color: var(--main-bg-color);
+    position: relative;
+    transition: all ease 0.2s;}
+
+.clock {
+    min-height: 18em;
+    min-width: 18em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--main-bg-color);
+    background-image: url("https://imvpn22.github.io/analog-clock/clock.png");
+    background-position: center center;
+    background-size: cover;
+    border-radius: 50%;
+    border: 8px solid #00D8FF;
+    transition: all ease 0.2s;}
+
+.clock:before {
+    content: "";
+    height: 0.75rem;
+    width: 0.75rem;
+    background-color: var(--main-text-color);
+    border: 2px solid var(--main-bg-color);
+    position: absolute;
+    border-radius: 50%;
+    z-index: 1000;
+    transition: all ease 0.2s;}
+
+.hour, .min, .sec {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;}
+
+.hour {
+    height: 10em;
+    width: 10em;}
+
+.hour:before {
+    content: "";
+    position: absolute;
+    height: 50%;
+    width: 6px;
+    background-color: var(--main-text-color);
+    border-radius: 6px;}
+
+.min {
+    height: 12em;
+    width: 12em;}
+    
+.min:before {
+    content: "";
+    height: 50%;
+    width: 4px;
+    background-color: var(--main-text-color);
+    border-radius: 4px;}
+
+.sec {
+    height: 13em;
+    width: 13em;}
+
+.sec:before {
+    content: "";
+    height: 60%;
+    width: 2px;
+    background-color: #00D8FF;
+    border-radius: 2px;}
+    </style>
+    
+    <div class="clock">
+        <div class="hour"></div>
+        <div class="min"></div>
+        <div class="sec"></div>
+    </div>
+    <!-- <script src="analogClock.js"></script> -->
+    <script>
+        // 1. Konstanta untuk penghitungan jam, menit, dan detik
+
+const deg = 6
+
+// 2. Selector pada setiap objek HTML
+
+const hour = document.querySelector(".hour")
+const min = document.querySelector(".min")
+const sec = document.querySelector(".sec")
+
+// 3. Function untuk membuat jam analog
+
+const setClock = () => {
+    
+// 4. Membuat variable untuk mendapatkan semua data waktu pada hari ini menggunakan method new Date()
+
+    let day = new Date();
+
+// 5. Mendapatkan angka jam, menit, dan detik menggunakan method getHours(), getMinutes(), dan getSeconds()
+
+    let h = day.getHours()
+
+// 6. Pengkondisian untuk jam analog (Angka yang didapat dari getHours() harus berformat 12)
+
+    if (h > 12) {
+        h -= 12
+    }
+
+    let hh = h * 30;
+    let mm = day.getMinutes() * deg;
+    let ss = day.getSeconds() * deg;
+
+// 7. Menggerakkan jarum jam berdasarkan derajat (derajat didapat dari operasi penghitungan di bawah)
+
+    hour.style.transform = `rotateZ(${hh + (mm / 12)}deg)`
+    min.style.transform = `rotateZ(${mm}deg)`
+    sec.style.transform = `rotateZ(${ss}deg)`
+};
+
+setClock()
+
+// 8. Menjalankan function setClock setiap 1000 miliseconds/ 1 detik
+
+setInterval(setClock, 1000)
+
+
+    </script>
+</body>
+
+</html>

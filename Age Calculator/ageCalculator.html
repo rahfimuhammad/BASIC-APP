@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <link rel="stylesheet" href="ageCalculator.css"/> -->
+    <!-- <script src="ageCalculator.js"></script> -->
+</head>
+<body>
+    <style>
+        .body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #15202c;
+    font-size: 15px;
+    line-height: 1.5;
+    padding: 0;
+    margin: 0;}
+
+    * {
+        box-sizing: border-box;
+    }
+
+.container {
+    width: 520px;
+    height: auto;
+    margin: 100px auto;
+    background-color: #eee;
+    border-radius: 25px;}
+
+.base {
+    width: 100%;
+    margin: 0;
+    overflow: hidden;
+    display: block;
+    float: none;}
+
+.block {
+    width: 135px;
+    padding: 5px 20px;
+    margin-left: 20px;
+    display: inline-block;}
+
+.base h4 {
+    font-size: 25px;
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: normal;
+    margin-top: 25px;
+    font-size: 31px;
+    color: #601bff;
+    font-weight: bold;}
+
+.title {
+    font-size: 20px;
+    text-align: left;
+    font-family: sans-serif;
+    font-weight: normal;
+    line-height: 0.5;
+    letter-spacing: 0.5px;
+    word-spacing: 2.7px;
+    color: #601bff;}
+
+input[type="text"] {
+    width: 140px;
+    margin: auto;
+    outline: none;
+    min-height: 50px;
+    border: 2px solid #1073d0;
+    padding: 12px;
+    background-color: #f7f7f7;
+    border-radius: 9px;
+    color: #1073d0;
+    font-size: 17px;}
+
+input[type="text"]:focus {
+    background-color: #ffffff;
+    border: 2px solid orange;
+    outline: none;}
+
+input[type="button"] {
+    width: 150px;
+    margin-left: 35%;
+    margin-top: 40px;
+    outline: none;
+    border: none;
+    border-radius: 89px;
+    background-color: #601bff;
+    color: #ffffff;
+    padding: 14px 16px;
+    text-align: center;
+    font-size: 16px;}
+
+input[type="button"]:hover {
+    background-color: #003669;}
+
+#age {
+    display: block;
+    margin: 10px;
+    margin-top: 35px;
+    padding: 10px;
+    padding-bottom: 20px;
+    overflow: hidden;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 1.5;
+    word-spacing: 2.7px;
+    color: navy;}
+    </style>
+    <div class="container">
+        <form>
+            <div class="base">
+                <div class="enter">
+                    <h4>Age Calculator</h4>
+                </div>
+                <div class="block">
+                    <p class="title">Date</p>
+                    <input type="text" name="date" id="date" placeholder="dd" required="required" minlength="1" maxlength="2"/>
+                </div>
+                <div class="block">
+                    <p class="title">Month</p>
+                    <input type="text" name="month" id="month" placeholder="mm" required="required" minlength="1" maxlength="2"/>
+                </div>
+                <div class="block">
+                    <p class="title">Year</p>
+                    <input type="text" name="year" id="year" placeholder="mm" required="required" minlength="4" maxlength="4"/>
+                </div>
+            </div>
+            <div class="base">
+                <div class="enter">
+                    <input type="button" name="submit" value="Submit" onClick="age()"/>
+                </div>
+            </div>
+            <div id="age">0 Years</div>
+        </form>
+    </div>
+    <script>
+        const age = () => {
+    let d1 = document.getElementById("date").value;
+    let m1 = document.getElementById("month").value;
+    let y1 = document.getElementById("year").value;
+    let age = document.getElementById("age")
+
+    let date = new Date()
+
+    age.innerHTML = 0
+    let d2 = date.getDate()
+    let m2 = 1 + date.getMonth()
+    let y2 = date.getFullYear()
+    let month = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+
+    if (d1 > 31 || m1 > 12 || y1 > y2) {
+        age.innerHTML = "Invalid input"
+    }
+    else if(d1 < 1 || m1 < 1 || y1 < 1) {
+        age.innerHTML = "Invalid input"
+    }
+    else {
+        if(d1 > d2) {
+            d2 = d2 + month[m2-1];
+            m2 = m2-1
+        }
+        if (m1 > m2) {
+            m2 = m2 + 12;
+            y2 = y2 -1}
+    
+        let d = d2 - d1;
+        let m = m2 - m1
+        let y = y2 - y1
+        age.innerHTML = 
+                "Your Age is " + y + " Years " + m + " Months " + d + " Days "    
+    }
+
+    
+}
+    </script>
+</body>
+</html>
